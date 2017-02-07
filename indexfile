@@ -25,13 +25,24 @@ maxindex1:22 - struct - indices of max_sh1:22
 shl - equal sized mocap hands 6 colum vectors from 1:22
 qom - rowwise sums of each 6 column vector
 
-selectwins1:704 - 1-704 arrays of 6 column vectors retrieved from top 32 windows from 22 participants
+selectwins1:704 - 
+1-704 arrays of 6 column vectors retrieved from top 32 windows from 22 participants
 
-
-
+#arrays:
 one, two, three, four, five, six - 1-6 features
+1-704 1 column vector result for each feature
+meansone - six
+stdevone - six
 
+plot means of 704 samples in arrays one through six
+
+whether thresholds?
+
+if thresholds, select
+#arrays
 sone, stwo, sthree, sfour, sfive, ssix
+meanssone-six
+stdevone-six
 
 
 #need the following:
@@ -46,10 +57,6 @@ sone, stwo, sthree, sfour, sfive, ssix
 
 structs
 one - six = 1:end of each of these features
-
-
-
-
 
 
 
