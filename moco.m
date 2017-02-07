@@ -193,32 +193,31 @@ maxindex.(sprintf('maxind%d',k)) = indices.(sprintf('ind%d',k))(1:16);
 end
 
 
+% segment windows per 22 people (rhy)
+    % in each 22
+       
+        % select top 32 most far away from each other (sum of rhy)
+        
+        % find indices for top 32 most far away from each other
+    
+    % send from indices of all top 704 to arrays select1:704 (6 col vector)
 
+    
+% initialize f.f1-f6 feature vectors for each of the 6 sets of features
 
-%segmentsliding window analysis of the absolute value of the quantity of motion feature of the data. 
+    % calculate 6x<704x1> vector for f1-f6, f1-f6 are arrays, f is structure
 
+        % calculate means for each array for f.f1-f6 (end up with 6 means)
 
+        % calculate sd for each row for f.f1-f6 (end up with  6 sds)
+        
+        % plot f.f1-f6 (plots of means)
 
-%retrieve the tracings corresponding to each sliding window from each participant 
-
-
-
-%analyse the top 32 tracings containing the most amount of activity to separate the non tracing sections from the active sections
-
-
-
-%compute 6 features for each of the 704 <32*22> tracings
-
-
-
-%plot these features to see trends or clusters
-
-
-
-%classify by thresholding, the tracings into one of these 6 categories
-
-
-
-%compare the measures of the classified tracings to all other groups
-
-
+        
+% decide thresholds
+    
+% s.s1-s6 struct.array for means from 1-6 for 704 rows depending on thresholds
+    
+    % means of s1-s6
+    
+    % sds of s1-s6
