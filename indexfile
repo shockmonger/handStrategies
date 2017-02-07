@@ -25,9 +25,27 @@ maxindex1:22 - struct - indices of max_sh1:22
 shl - equal sized mocap hands 6 colum vectors from 1:22
 qom - rowwise sums of each 6 column vector
 
+selectwins1:704 - 1-704 arrays of 6 column vectors retrieved from top 32 windows from 22 participants
+
+
+
+one, two, three, four, five, six - 1-6 features
+
+sone, stwo, sthree, sfour, sfive, ssix
 
 
 #need the following:
+
+#feature list
+#1 - QoM(rhy)-QoM(lhy) #minimize this difference for bilateral symmetry
+#2 - gradient(LHX)-gradient(RHX^T) #minimize
+#3 - RHY-LHY^T  #how to transpose laterally if y axis? means do x axis?
+#4 - RH(x,y,z) ~ LH(x,y,z) #difference of qom minimize
+#5 - x^2+y^2+z^2 #if fits then more specific
+#6 - t(RH(xyz)) - t(LH(xyz)) + C #DTW feature? 
+
+structs
+one - six = 1:end of each of these features
 
 
 
