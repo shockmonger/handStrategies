@@ -1,0 +1,38 @@
+#Index of variables for moco:
+
+s - struct - all mocap data
+d - struct = derivates of all mocap data
+
+sh - struct - all mocap data having unequal lengths
+newSH - struct - old don't use mocap data with unequal lengths
+qom - struct - rowwise sum of sh
+newQoM - rowwise sum of newsh
+normQoM - mat2gray of newqom
+
+shl.shl1:22 - struct - all mocap data of equal lengths cut from the beginning, absolute value only
+
+win.win1:22.dowsj - stuct - sliding windows of 1:22 samples, dows of number of windows
+this is only for rhy
+
+sums.sum1:22 - struct - sums of sliding window rhy qoms
+indices.ind1:22 - struct - indices of sums
+max_sh1:22 - struct - max n sums from sums1:22
+maxindex1:22 - struct - indices of max_sh1:22
+
+
+#IFCLEAN
+
+shl - equal sized mocap hands 6 colum vectors from 1:22
+qom - rowwise sums of each 6 column vector
+
+
+
+#need the following:
+
+
+
+
+
+
+
+#lurd
