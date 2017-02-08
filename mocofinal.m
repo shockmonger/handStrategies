@@ -70,7 +70,7 @@ peakwins = {};
 for k = 1:22
    x = length(peaks2.(sprintf('peak%d',k)));
    for j = 1:x
-       numstpID = locs.(sprintf('loc%d',k));
+       numstpID = locs2.(sprintf('loc%d',k));
        pointer = numstpID*slide_incr;
        point = pointer(j,1);
        for i = 1:winsize;
@@ -83,7 +83,9 @@ end
 
 
 %allwindows
+allwins = {};
 allwins.win0 = {};
+l = 0;
 for k = 1:22
     x = length(fieldnames(peakwins.(sprintf('peakwin%d',k))));
     for j = 1:x
@@ -115,7 +117,7 @@ f.f1 = [];
 counter = 0;
 for k = 2:length(fieldnames(qomall));
     for j = 1:1100
-        feature = [feature; allwins.(sprintf('win%d',k))(j,2)-allwins.(sprintf('win%d',k))(j,5)];
+        feature = [feature; abs(allwins.(sprintf('win%d',k))(j,2))-abs(allwins.(sprintf('win%d',k))(j,5))];
     end
     meanfeature = mean(feature);
     f.f1 = [f.f1; meanfeature];
@@ -166,7 +168,7 @@ for k = 2:length(fieldnames(qomall));
         x = allwins.(sprintf('win%d',k))(j,1);
         y = allwins.(sprintf('win%d',k))(j,2);
         z = allwins.(sprintf('win%d',k))(j,3);
-        feature = [feature; x.^2+y.^2+z.^2];
+        feature = [feature; sqrt(x.^2+y.^2+z.^2)];
     end
     meanfeature = mean(feature);
     f.f5 = [f.f5; meanfeature];
@@ -198,61 +200,67 @@ end
 
 % plot f.f1-f6 (plots of means)
 figure
-
-
-        
-% decide thresholds
-s = {};    
-l = 0;
-for k = 2:length(f.f1)
-    if -40 < f1(k,1) < 20 
-        s.s1.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
-        l = l+1;  
-    end
-end
-
-for k = 2:length(f.f1)
-    if 
-        s.s2.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
-        l = l+1;  
-    end
-end
-
-for k = 2:length(f.f1)
-    if 
-    s.s3.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
-        l = l+1;  
-    end
-end
-
-for k = 2:length(f.f1)
-    if 
-    s.s4.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
-    l = l+1;  
-    end
-end
-
-for k = 2:length(f.f1)
-    if
-        s.s5.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
-        l = l+1;  
-    end
-end
-
-for k = 2:length(f.f1)
-    if
-        s.s6.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
-        l = l+1;
-    end
+for k = 1:6
+    subplot(6,1,k)
+    stem(f.(sprintf('f%d',k)))
 end
 
 
+for k = 1:6
+fnorm.(sprintf('f%d',k)) = mat2gray(f.(sprintf('f%d',k)))
+end
 
-m2 = [];
+m3 = [];
 for n = 1:6
-    m(n,1) = mean(s.(sprintf('s%d',n)));
-    m(n,2) = std(s.(sprintf('s%d',n))); 
+    m3(n,1) = mean(fnorm.(sprintf('f%d',n)));
+    m3(n,2) = std(fnorm.(sprintf('f%d',n)));
 end
 
 
-% s1-s6
+
+%loop to decide thresholds
+%all problems are minimization problems. therefore:
+s = {};
+rest = {};
+l = 0;
+c = 0;
+for k = 1:6
+    mu = m3(k,1);
+    sigma = m3(k,2);
+    lb = mu-(sigma/2);
+    ub = mu+(sigma/2);
+    s.(sprintf('s%d',k)) = [];
+    rest.(sprintf('s%d',k)) = [];
+    for j = 1:751
+        if fnorm.(sprintf('f%d',k))(j,1) < ub
+            if lb < fnorm.(sprintf('f%d',k))(j,1)
+                l = length(s.(sprintf('s%d',k)));
+                s.(sprintf('s%d',k))(l+1,1) = fnorm.(sprintf('f%d',k))(j,1);
+                s.(sprintf('s%d',k))(l+1,2) =j;
+            else
+                r = length(rest.(sprintf('s%d',k)));
+                rest.(sprintf('s%d',k))(l+1,1) = fnorm.(sprintf('f%d',k))(j,1);
+                rest.(sprintf('s%d',k))(l+1,2) =j;
+            end
+        end
+    end
+end
+
+%s is rest, rest is s
+
+%stats from rest    
+m4 = [];
+for n = 1:6
+    m4(n,1) = mean(s.(sprintf('s%d',n))(:,1));
+    m4(n,2) = std(s.(sprintf('s%d',n))(:,1));
+end
+
+
+%stats from s
+m5 = [];
+for n = 1:6
+    m5(n,1) = mean(rest.(sprintf('s%d',n))(:,1));
+    m5(n,2) = std(rest.(sprintf('s%d',n))(:,1));
+end
+
+
