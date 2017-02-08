@@ -192,6 +192,53 @@ for k = 1:22
 maxindex.(sprintf('maxind%d',k)) = indices.(sprintf('ind%d',k))(1:16);
 end
 
+% decide thresholds
+s = {};    
+l = 0;
+for k = 2:length(f.f1)
+    if -40 < f1(k,1) < 20 
+        s.s1.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
+        l = l+1;  
+    end
+end
+
+for k = 2:length(f.f1)
+    if 
+        s.s2.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
+        l = l+1;  
+    end
+end
+
+for k = 2:length(f.f1)
+    if 
+    s.s3.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
+        l = l+1;  
+    end
+end
+
+for k = 2:length(f.f1)
+    if 
+    s.s4.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
+    l = l+1;  
+    end
+end
+
+for k = 2:length(f.f1)
+    if
+        s.s5.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
+        l = l+1;  
+    end
+end
+
+for k = 2:length(f.f1)
+    if
+        s.s6.(sprintf('s%d',l+1)) = allwins.(sprintf('win%d',k));
+        l = l+1;
+    end
+end
+
+
+
 
 % segment windows per 22 people (rhy)
     % in each 22

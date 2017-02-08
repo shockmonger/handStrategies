@@ -263,4 +263,12 @@ for n = 1:6
     m5(n,2) = std(rest.(sprintf('s%d',n))(:,1));
 end
 
+tt = [];
+for k = 1:6
+    [tt(k,1),tt(k,2)] = ttest2(s.(sprintf('s%d',k))(:,1),rest.(sprintf('s%d',k))(:,1));
+end
 
+tt = [];
+for k = 1:6
+    [tt(k,1),tt(k,2)] = ttest2(s.(sprintf('s%d',k))(:,1),fnorm.(sprintf('f%d',k))(:,1));
+end
